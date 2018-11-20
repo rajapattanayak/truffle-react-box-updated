@@ -176,7 +176,7 @@ Watch Usage
  › Press Enter to trigger a test run.
 ```
 
-![Alt text](/readme-screenshots/images/local-ganche-test.png?raw=true "Optional Title")
+![Alt text](/images/local-ganche-test.png?raw=true "Optional Title")
 
 
 ## Push Frontend to Production (AWS s3)
