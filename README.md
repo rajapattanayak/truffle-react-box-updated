@@ -1,5 +1,8 @@
 # Truffle React Box Updated
 
+*DAPP is running on http://truffle-react-basic.s3-website-us-east-1.amazonaws.com/
+and demo smart contract is deployed to Rinkeby.*
+
 ## Setup
  
  * Node should be installed
@@ -63,37 +66,14 @@ See more at http://truffleframework.com/docs
 
 * Start Ganache Server
 
-* Add network configuration : truffle.js
+* Add/Modify network configuration : truffle.js as per your local and Test setting
     https://truffleframework.com/docs/truffle/reference/configuration#networks
 
-```  
-networks: {
-  development: {
-    host: "127.0.0.1",
-    port: 8545,
-    network_id: "*" // match any network
-  },
-  live: {
-    host: "178.25.19.88", // Random IP for example purposes (do not use)
-    port: 80,
-    network_id: 1,        // Ethereum public network
-    // optional config values:
-    // gas
-    // gasPrice
-    // from - default address to use for any transaction Truffle makes during migrations
-    // provider - web3 provider instance Truffle should use to talk to the Ethereum network.
-    //          - function that returns a web3 provider instance (see below.)
-    //          - if specified, host and port are ignored.
-  }
-}
-```
-
-* Change as per ganache running port inside client -> utils -> getWeb3.js (For me line 23 8545)
-
+* Change as per ganache running port inside client -> utils -> getWeb3.js (For me line 23 : Port 8545)
 
 * Compile:
 
-**truffle compile**
+    **truffle compile**
 
 ```
 truffle compile
@@ -104,7 +84,7 @@ Writing artifacts to ./build/contracts
 
 * Migrate Contract to Ganache
 
-**truffle migrate**
+    **truffle migrate**
 
 ```
 truffle migrate
@@ -128,7 +108,7 @@ Saving artifacts...
 
 * Test deployed contracts
 
-**truffle test**
+    **truffle test**
 
 ```
 Using network 'development'.
@@ -154,30 +134,9 @@ Compiling truffle/DeployedAddresses.sol...
 
 Inside Client (cd client)
 
-* Test
+* Run Test
 
-**npm test**
-
-```
- PASS  src/App.test.js
-  ✓ renders without crashing (17ms)
-
-Test Suites: 1 passed, 1 total
-Tests:       1 passed, 1 total
-Snapshots:   0 total
-Time:        3.475s
-Ran all test suites related to changed files.
-
-Watch Usage
- › Press p to filter by a filename regex pattern.
- › Press t to filter by a test name regex pattern.
- › Press q to quit watch mode.
- › Press Enter to trigger a test run.
-```
-
-* Run dev server
-
-**npm run start**
+    **npm test**
 
 ```
  PASS  src/App.test.js
@@ -196,7 +155,26 @@ Watch Usage
  › Press Enter to trigger a test run.
 ```
 
+* Run frontend dev server
 
+    **npm run start**
+
+```
+ PASS  src/App.test.js
+  ✓ renders without crashing (17ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        3.475s
+Ran all test suites related to changed files.
+
+Watch Usage
+ › Press p to filter by a filename regex pattern.
+ › Press t to filter by a test name regex pattern.
+ › Press q to quit watch mode.
+ › Press Enter to trigger a test run.
+```
 
 
 
@@ -234,22 +212,18 @@ Find out more about deployment here:
   http://bit.ly/CRA-deploy
 ```
 
-* Copy the client/build folder and put it in s3
-
+- Copy the client/build folder and put it in s3
 - Create new s3 bucket
 - Give public access. Go to Public access settings . ACL and Bucket policy should be False.
 - Upload build files from local box
 - Add static website end point.
 
-http://truffle-react-basic.s3-website-us-east-1.amazonaws.com/
-
-
 ## Push Contract to Rinkeby
 
-* Update the Production network -
+* Update the Production network
 
 Add the config:
-* Create .env file
+* Create .env file in source directory.
     * Enter env details. Get INFURA API key from https://infura.io/
     and MNEMONIC from Metamask.
     ```
@@ -258,9 +232,9 @@ Add the config:
     ```
 
 
-* Push contract to Rinkeby -
+* Push contract to Rinkeby
 
-**truffle migrate --reset --compile-all --network rinkeby**
+    **truffle migrate --reset --compile-all --network rinkeby**
 
 ```
 truffle migrate --reset --compile-all --network rinkeby
@@ -300,7 +274,7 @@ You can now view client in the browser.
 
 * Build frontend for Production. (It will include rinkeby contract address to connect)
 * npm run build
-* Copy client/build to s3 bucket
-* Go to http://truffle-react-basic.s3-website-us-east-1.amazonaws.com/
+* Copy client/build to s3 bucket.
+* Go to your s3 bucket serving url
 
-**Frontend in s3 and contracts are in Rinkeby. Able to connect and update stored value**
+**DAPP in s3 and contracts are in Rinkeby. Both are able to communicate**
