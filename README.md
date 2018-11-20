@@ -1,17 +1,20 @@
-Truffle React Box
+# Truffle React Box Updated
 
-Initialize Project
-————————----------
+## Setup
+ 
+ * Node should be installed
 
-Steps: 
-
-Use React box from the link https://truffleframework.com/boxes/react
-
+```
 node -v
 v10.13.0
 
-* npm install -g truffle
+```
 
+* truffle should be installed
+
+**npm install -g truffle**
+
+```
 truffle -v
 Truffle v4.1.14 - a development framework for Ethereum
 
@@ -40,34 +43,30 @@ Commands:
 
 See more at http://truffleframework.com/docs
 
-* truffle unbox react
+```
 
-truffle unbox react
-Downloading...
-Unpacking...
-Setting up...
-Unbox successful. Sweet!
+**truffle commands**
 
-Commands:
-
+```
   Compile:              truffle compile
   Migrate:              truffle migrate
   Test contracts:       truffle test
   Test dapp:            cd client && npm test
   Run dev server:       cd client && npm run start
   Build for production: cd client && npm run build
+```
 
 
+## Deploy Contracts to Local Blockchain
 
-Deploy Contracts to Local Blockchain
-————————————————————
+### Steps:
 
-
-Steps:
 * Start Ganache Server
-* Add network configuration : truffle.js
-    * https://truffleframework.com/docs/truffle/reference/configuration#networks
 
+* Add network configuration : truffle.js
+    https://truffleframework.com/docs/truffle/reference/configuration#networks
+
+```  
 networks: {
   development: {
     host: "127.0.0.1",
@@ -87,24 +86,27 @@ networks: {
     //          - if specified, host and port are ignored.
   }
 }
+```
 
-* Change as per ganache running port inside client -> utils -?> getWeb3.js (For me line 23 8545)
+* Change as per ganache running port inside client -> utils -> getWeb3.js (For me line 23 8545)
 
 
 * Compile:
 
-truffle compile
+**truffle compile**
 
+```
 truffle compile
 Compiling ./contracts/Migrations.sol...
 Compiling ./contracts/SimpleStorage.sol...
 Writing artifacts to ./build/contracts
-
+```
 
 * Migrate Contract to Ganache
 
-truffle migrate
+**truffle migrate**
 
+```
 truffle migrate
 Using network 'development'.
 
@@ -122,10 +124,13 @@ Running migration: 2_deploy_contracts.js
 Saving successful migration to network...
   ... 0x02831d24e49f58e0cd17b82b5ad30374a65c8d536d82808f89c69e91bb4cc445
 Saving artifacts...
+```
 
 * Test deployed contracts
 
-truffle test
+**truffle test**
+
+```
 Using network 'development'.
 
 Compiling ./contracts/SimpleStorage.sol...
@@ -142,22 +147,18 @@ Compiling truffle/DeployedAddresses.sol...
 
 
   2 passing (1s)
+```
 
 
-
-
-Run the Frontend Client
-—————————————
+## Run the Frontend Client
 
 Inside Client (cd client)
 
-Install dependency:
-npm install bignumber.js
-
 * Test
 
-npm test
+**npm test**
 
+```
  PASS  src/App.test.js
   ✓ renders without crashing (17ms)
 
@@ -172,12 +173,13 @@ Watch Usage
  › Press t to filter by a test name regex pattern.
  › Press q to quit watch mode.
  › Press Enter to trigger a test run.
-
+```
 
 * Run dev server
 
-npm run start
+**npm run start**
 
+```
  PASS  src/App.test.js
   ✓ renders without crashing (17ms)
 
@@ -192,19 +194,17 @@ Watch Usage
  › Press t to filter by a test name regex pattern.
  › Press q to quit watch mode.
  › Press Enter to trigger a test run.
+```
 
 
 
 
 
+## Push Frontend to Production (AWS s3)
 
-Push Frontend to Production (AWS s3)
+**npm run build**
 
-
-** Upgrade react-scripts to "react-scripts": "2.1.1"
-
-npm run build
-
+```
 Set target browsers: >0.2%, not dead, not ie <= 11, not op_mini all
 
 Creating an optimized production build...
@@ -232,8 +232,9 @@ You may serve it with a static server:
 Find out more about deployment here:
 
   http://bit.ly/CRA-deploy
+```
 
-Copy the client/build folder and put it in s3
+* Copy the client/build folder and put it in s3
 
 - Create new s3 bucket
 - Give public access. Go to Public access settings . ACL and Bucket policy should be False.
@@ -243,52 +244,25 @@ Copy the client/build folder and put it in s3
 http://truffle-react-basic.s3-website-us-east-1.amazonaws.com/
 
 
-Push Contract to Rinkeby
+## Push Contract to Rinkeby
 
-1) use dotenv for config -
-
-npm init
-npm install dotenv
-npm install 
-npm install truffle-hdwallet-provider
-
-2) Update the Production network -
+* Update the Production network -
 
 Add the config:
 * Create .env file
-    * Enter env details. Get INFURA API key from https://infura.io/. MNEMONIC is from Metamask 
+    * Enter env details. Get INFURA API key from https://infura.io/
+    and MNEMONIC from Metamask.
+    ```
 			INFURA_APIKEY=""
 			MNEMONIC=""
-        * 
-* Update NW details in truffle.js
+    ```
 
-var HDWalletProvider = require("truffle-hdwallet-provider");
-require('dotenv').config();
 
-module.exports = {
-  // See <http://truffleframework.com/docs/advanced/configuration>
-  // to customize your Truffle configuration!
-  networks: {
-    development: {
-      host: "localhost",
-      port: 8545,
-      network_id: "*"
-    },
-    rinkeby: {
-      provider: function() {
-        return new HDWalletProvider(process.env.MNEMONIC, 
-          "https://rinkeby.infura.io/" + process.env.INFURA_APIKEY
-        );
-      },
-      network_id: 4
-    }
-  }
-};
+* Push contract to Rinkeby -
 
-3) Push contract to Rinkeby -
+**truffle migrate --reset --compile-all --network rinkeby**
 
-truffle migrate --reset --compile-all --network rinkeby
-
+```
 truffle migrate --reset --compile-all --network rinkeby
 Compiling ./contracts/Migrations.sol...
 Compiling ./contracts/SimpleStorage.sol...
@@ -320,16 +294,13 @@ Compiled successfully!
 You can now view client in the browser.
   Local:            http://localhost:3000/
   On Your Network:  http://10.1.3.37:3000/
+```
 
-
-
-
-
-Test it from Production s3 URL:
+### Test it from Production s3 URL:
 
 * Build frontend for Production. (It will include rinkeby contract address to connect)
-    * npm run build
+* npm run build
 * Copy client/build to s3 bucket
 * Go to http://truffle-react-basic.s3-website-us-east-1.amazonaws.com/
 
-** Frontend in s3 and contracts are in Rinkeby. Able to connect and update stored value **
+**Frontend in s3 and contracts are in Rinkeby. Able to connect and update stored value**
