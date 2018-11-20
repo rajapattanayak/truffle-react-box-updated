@@ -176,7 +176,7 @@ Watch Usage
  › Press Enter to trigger a test run.
 ```
 
-![Alt text](/images/local-ganche-test.png?raw=true "Optional Title")
+![Alt text](/images/local-ganche-test.png?raw=true "LocalGancheTest")
 
 
 ## Push Frontend to Production (AWS s3)
@@ -271,6 +271,8 @@ You can now view client in the browser.
   On Your Network:  http://10.1.3.37:3000/
 ```
 
+![Alt text](/images/local-rinkeby-test.png?raw=true "LocalRinkebyTest")
+
 ### Test it from Production s3 URL:
 
 * Build frontend for Production. (It will include rinkeby contract address to connect)
@@ -279,3 +281,5 @@ You can now view client in the browser.
 * Go to your s3 bucket serving url
 
 **DAPP in s3 and contracts are in Rinkeby. Both are able to communicate**
+
+![Alt text](/images/s3-rinkeby-test.png?raw=true "s3RinkebyTest")
